@@ -1,0 +1,18 @@
+<mat-card class="login-content">
+  <mat-card-content>
+    <h1>Holidays</h1>
+    <form class="login-form" [formGroup]="loginFormGroup" (submit)="doLogin()">
+      <mat-form-field>
+        <mat-label>Login</mat-label>
+        <input matInput type="text" formControlName="login"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password"/>
+      </mat-form-field>
+      <button mat-raised-button type="submit">Login</button>
+    </form>
+
+  </mat-card-content>
+</mat-card>
+
