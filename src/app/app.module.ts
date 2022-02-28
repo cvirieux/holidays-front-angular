@@ -6,6 +6,8 @@ import {HomeModule} from "./home/home.module";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UserService} from "./shared/service/user.service";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +16,9 @@ import {UserService} from "./shared/service/user.service";
     AppRoutingModule,
     HomeModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   exports: [],
   providers: [

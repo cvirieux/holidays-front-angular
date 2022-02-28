@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {UserService} from "../shared/service/user.service";
 
 
 @Component({
@@ -8,10 +9,10 @@ import {Component} from '@angular/core';
 })
 export class HomeComponent {
 
-  constructor() {
+  constructor(private userService: UserService) {
   }
 
   public logout(): void {
-    localStorage.removeItem("jwt");
+    this.userService.logout();
   }
 }

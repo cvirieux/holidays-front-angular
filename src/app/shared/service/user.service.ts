@@ -3,28 +3,32 @@ import jwtDecode from "jwt-decode";
 import {JwtUser} from "../../model/jwt-user.model";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {Observable} from "rxjs";
+import {BehaviorSubject, map, Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class UserService {
+  private loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
-  public login(login: string, password: string): Observable<string> {
+  public login(login: string, password: string): Observable<void> {
     return this.http.post<string>(`${environment.backend}/login`, {
       login: login,
       password: password
-    }, {responseType: 'text' as 'json'});
+    }, {responseType: 'text' as 'json'})
+      .pipe(
+        map(jwt => {
+          localStorage.setItem("jwt", jwt);
+          this.loggedIn.next(true);
+        })
+      );
   }
 
-  public storeJwt(jwt: string) {
-    localStorage.setItem("jwt", jwt);
-  }
 
-  public isLoggedIn(): boolean {
-    const token = localStorage.getItem("jwt");
-    return !!token;
+  public isLoggedIn(): Observable<boolean> {
+    return this.loggedIn.asObservable();
   }
 
   public getRoles(): string[] {
@@ -34,6 +38,12 @@ export class UserService {
     } else {
       return [];
     }
+  }
+
+  public logout(): void {
+    localStorage.removeItem("jwt");
+    this.loggedIn.next(false);
+    this.router.navigate(['/login']);
   }
 
 }

@@ -27,8 +27,7 @@ export class LoginComponent implements OnInit {
       this.userService.login(
         this.loginFormGroup.controls['login'].value,
         this.loginFormGroup.controls['password'].value
-      ).subscribe(jwt => {
-        this.userService.storeJwt(jwt);
+      ).subscribe(() => {
         this.router.navigate(["/"]);
       })
     }

@@ -1,1 +1,8 @@
+<mat-toolbar *ngIf="isLoggedIn$ | async">
+  <button mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Holidays</span>
+</mat-toolbar>
+
 <router-outlet></router-outlet>
